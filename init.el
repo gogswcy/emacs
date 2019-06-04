@@ -4,49 +4,11 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
-(when (>= emacs-major-version 24)
-	(require 'package)
-	(package-initialize)
-	(setq package-archives '(("gnu"   . "http://elpa.emacs-china.org/gnu/")
-  							("melpa" . "http://elpa.emacs-china.org/melpa/"))))
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require 'init-packages)
 
-;; 注意 elpa.emacs-china.org 是 Emacs China 中文社区在国内搭建的一个 ELPA 镜像
-
- ;; cl - Common Lisp Extension
- (require 'cl)
-
- ;; Add Packages
- (defvar my/packages '(
-		;; --- Auto-completion ---
-		company
-		;; --- Better Editor ---
-		hungry-delete
-		swiper
-		counsel
-		smartparens
-		;; --- Major Mode ---
-		js2-mode
-		;; --- Minor Mode ---
-		nodejs-repl
-		;; exec-path-from-shell
-		;; --- Themes ---
-		monokai-theme
-		;; solarized-theme
-		) "Default packages")
-
-(setq package-selected-packages my/packages)
-
-(defun my/packages-installed-p ()
-	(loop for pkg in my/packages
-		when (not (package-installed-p pkg)) do (return nil)
-		finally (return t)))
-
-(unless (my/packages-installed-p)
-	(message "%s" "Refreshing package database...")	
-	(package-refresh-contents)
-	(dolist (pkg my/packages)
-		(when (not (package-installed-p pkg))
-			(package-install pkg))))
+;; 关闭滚动到底部的提示音
+(setq ring-bell-function 'ignore)
 
 ;; 开启后默认全屏
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
@@ -61,12 +23,8 @@
 (add-to-list 'my/packages 'monokai-theme)
 (load-theme 'monokai 1)
 
-;; swiper
-(ivy-mode 1)
-(setq ivy-use-virtual-buffers t)
+
 (setq enable-recursive-minibuffers t)
-;; enable this if you want `swiper' to use it
-;; (setq search-default-mode #'char-fold-to-regexp)
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "<f6>") 'ivy-resume)
@@ -75,17 +33,14 @@
 (global-set-key (kbd "C-c g") 'counsel-git)
 (global-set-key (kbd "C-c j") 'counsel-git-grep)
 
-;; js2-mode
-(setq auto-mode-alist
-      (append
-       '(("\\.js\\'" . js2-mode))
-       auto-mode-alist))
-
 ;; 关闭自动备份
 (setq make-backup-files nil)
 
 ;; yes-or-no 换成 y-or-n
-(fset 'yes-or-no 'y-or-n)
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; 有修改自动加载
+(global-auto-revert-mode t)
 
 ;; 关闭工具栏, tool-bar-mode 即为一个 Minor Mode
 (tool-bar-mode -1)
@@ -120,8 +75,6 @@
 ;; 将open-init-file绑定到f1上
 (global-set-key (kbd "<f1>") 'open-init-file)
 
-;; 开启全局 Company 补全
-(global-company-mode 1)
 
 ;; 最近打开文档
 (require 'recentf)
@@ -140,3 +93,10 @@
 (setq org-agenda-files '("~/org"))
 ;; 设置 org-agenda 打开快捷键
 (global-set-key (kbd "C-c a") 'org-angeda)
+
+;; 缩写
+(abbrev-mode t)
+(define-abbrev-table 'global-abbrev-table '(
+					    ;; sinagture
+					    ("wys" "Wang YaSong")
+					    ))
