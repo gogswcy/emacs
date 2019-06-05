@@ -17,4 +17,14 @@
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 
+;; indent 缩进
+(global-set-key (kbd "C-M-\\") 'indent-region-or-buffer)
+
+;; hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;; dired
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
 (provide 'init-keybindings)

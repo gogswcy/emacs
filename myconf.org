@@ -1,0 +1,9 @@
+* 
+#+BEGIN_SRC emacs-lisp
+(package-initialize)
+#+END_SRC
+
+* 这里可以写注释
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC

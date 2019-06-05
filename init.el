@@ -4,6 +4,11 @@
 ;; You may delete these explanatory comments.
 (package-initialize)
 
+;; org-mode 管理配置文件
+(require 'org-install)
+(require 'ob-tangle)
+(org-babel-load-file (expand-file-name "myconf.org" user-emacs-directory))
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
 (require 'init-fun)
