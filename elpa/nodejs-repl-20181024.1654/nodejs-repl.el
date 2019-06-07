@@ -237,40 +237,39 @@ when receive the output string"
     (goto-char (point-max))
     (process-put proc 'last-line (buffer-substring (point-at-bol) (point)))))
 
-(defun nodejs-repl--get-completions-from-process (token))
-;;(defun nodejs-repl--get-completions-from-process (token)
-;;  "Get completions sending TAB to Node.js process."
-;;  (let ((ret (if (version< nodejs-repl-nodejs-version "7.0.0")
-;;                 (nodejs-repl--send-string (concat token "\t"))
-;;               (nodejs-repl--send-string (concat token "\t"))
-;;               (nodejs-repl--send-string "\t")))
-;;        completions)
-;;    (nodejs-repl-clear-line)
-;;    (when (not (equal ret token))
-;;      (if (string-match-p "\n" ret)
-;;          (progn
-;;            ;; remove extra substrings
-;;            (setq ret (replace-regexp-in-string "\r" "" ret))
-;;            ;; remove LF
-;;            (setq ret (replace-regexp-in-string "\n\\{2,\\}" "\n" ret))
-;;            ;; trim trailing whitespaces
-;;            (setq ret (replace-regexp-in-string "[ \t\r\n]*\\'" "" ret))
-;;            ;; don't split by whitespaces because the prompt might have whitespaces!!
-;;            (setq completions (split-string ret "\n"))
-;;            ;; remove the first element (input) and the last element (prompt)
-;;            (setq completions (reverse (cdr (reverse (cdr completions)))))
-;;            ;; split by whitespaces
-;;            ;; '("encodeURI     encodeURIComponent") -> '("encodeURI" "encodeURIComponent")
-;;            (setq completions (split-string
-;;                              (replace-regexp-in-string " *$" "" (mapconcat 'identity completions " "))
-;;                              "[ \t\r\n]+"))
-;;			)
-;;          (setq ret (replace-regexp-in-string nodejs-repl-extra-espace-sequence-re "" ret))
-;;          (let ((candidate-token (nodejs-repl--get-last-token ret)))
-;;            (setq completions (if (or (null candidate-token) (equal candidate-token token))
-;;                                 nil
-;;                               (list candidate-token))))))
-;;    completions))
+(defun nodejs-repl--get-completions-from-process (token)
+  "Get completions sending TAB to Node.js process."
+  (let ((ret (if (version< nodejs-repl-nodejs-version "7.0.0")
+                 (nodejs-repl--send-string (concat token "\t"))
+               (nodejs-repl--send-string (concat token "\t"))
+               (nodejs-repl--send-string "\t")))
+        completions)
+    (nodejs-repl-clear-line)
+    (when (not (equal ret token))
+      (if (string-match-p "\n" ret)
+          (progn
+            ;; remove extra substrings
+            (setq ret (replace-regexp-in-string "\r" "" ret))
+            ;; remove LF
+            (setq ret (replace-regexp-in-string "\n\\{2,\\}" "\n" ret))
+            ;; trim trailing whitespaces
+            (setq ret (replace-regexp-in-string "[ \t\r\n]*\\'" "" ret))
+            ;; don't split by whitespaces because the prompt might have whitespaces!!
+            (setq completions (split-string ret "\n"))
+            ;; remove the first element (input) and the last element (prompt)
+            (setq completions (reverse (cdr (reverse (cdr completions)))))
+            ;; split by whitespaces
+            ;; '("encodeURI     encodeURIComponent") -> '("encodeURI" "encodeURIComponent")
+            (setq completions (split-string
+                              (replace-regexp-in-string " *$" "" (mapconcat 'identity completions " "))
+                              "[ \t\r\n]+"))
+)
+          (setq ret (replace-regexp-in-string nodejs-repl-extra-espace-sequence-re "" ret))
+          (let ((candidate-token (nodejs-repl--get-last-token ret)))
+            (setq completions (if (or (null candidate-token) (equal candidate-token token))
+                                 nil
+                               (list candidate-token))))))
+    completions))
 
 (defun nodejs-repl--get-or-create-process ()
   (let ((proc (get-process nodejs-repl-process-name)))

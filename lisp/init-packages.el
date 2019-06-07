@@ -62,7 +62,7 @@
 (global-company-mode 1)
 
 ;; slime设置
-(setq inferior-lisp-program "D:\\clisp-2.49\\clisp.exe")
+(setq inferior-lisp-program "/usr/bin/clisp")
 (add-to-list 'slime-contribs 'slime-fancy)
 
 ;; popwin插件, 切换窗口, 光标也切换
