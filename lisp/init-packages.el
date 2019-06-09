@@ -17,8 +17,10 @@
 		counsel
 		smartparens
 		popwin
+		expand-region
 		;; --- Major Mode ---
 		js2-mode
+		web-mode
 		;; --- Minor Mode ---
 		nodejs-repl
 		slime
@@ -52,11 +54,37 @@
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
 
-;; js2-mode
+;; js2-mode web-mode
 (setq auto-mode-alist
       (append
        '(("\\.js\\'" . js2-mode))
+       '(("\\.html\\'" . web-mode))
        auto-mode-alist))
+
+;; 设置web-mode 缩进, 我设置的是4个空格
+(defun my-web-mode-indent-setup ()
+  (setq web-mode-markup-indent-offset 4)
+  (setq web-mode-css-indent-offset 4)
+  (setq web-mode-code-indent-offset 4)
+  )
+(add-hook 'web-mode-hook 'my-web-mode-indent-setup)
+;; 这个函数可以在2个空格和4个空格之间切换
+(defun my-toggle-web-indent ()
+  (interactive)
+  ;; web development
+  (if (or (eq major-mode 'js-mode) (eq major-mode 'js2-mode))
+      (progn
+	(setq js-indent-level (if (= js-indent-level 2) 4 2))
+	(setq js2-basic-offset (if (= js2-basic-offset 2) 4 2))))
+
+  (if (eq major-mode 'web-mode)
+      (progn (setq web-mode-markup-indent-offset (if (= web-mode-markup-indent-offset 2) 4 2))
+	     (setq web-mode-css-indent-offset (if (= web-mode-css-indent-offset 2) 4 2))
+	     (setq web-mode-code-indent-offset (if (= web-mode-code-indent-offset 2) 4 2))))
+  (if (eq major-mode 'css-mode)
+      (setq css-indent-offset (if (= css-indent-offset 2) 4 2)))
+
+  (setq indent-tabs-mode nil))
 
 ;; 开启全局 Company 补全
 (global-company-mode 1)

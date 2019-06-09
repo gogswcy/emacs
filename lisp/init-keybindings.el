@@ -17,4 +17,16 @@
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 
+;; 切换缩进, 是4个空格还是2个空格
+(global-set-key (kbd "C-c t i") 'my-toggle-web-indent)
+
+;; occur-dwim
+(global-set-key (kbd "M-s o") 'occur-dwim)
+
+;;imenu
+(global-set-key (kbd "M-s i") 'counsel-imenu)
+
+;; expand-region
+(global-set-key (kbd "C-=") 'er/expand-region)
+
 (provide 'init-keybindings)
