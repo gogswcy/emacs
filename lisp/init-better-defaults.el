@@ -1,6 +1,9 @@
 ;; 关闭滚动到底部的提示音
 (setq ring-bell-function 'ignore)
 
+;; default encoding
+(set-language-environment "UTF-8")
+
 ;; 有修改自动加载
 (global-auto-revert-mode t)
 
