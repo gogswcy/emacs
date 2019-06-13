@@ -27,4 +27,11 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
+;; occur mode 默认搜索当前被选中的或者在光标下的字符串
+(global-set-key (kbd "M-s o") 'occur-dwim)
+
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+(global-set-key (kbd "M-s e") 'iedit-mode)
+
 (provide 'init-keybindings)

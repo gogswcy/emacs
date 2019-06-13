@@ -24,7 +24,14 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 ;; 启用括号匹配
-(add-hook 'emacs-lisp-mode 'show-paren-mode)
+(add-hook 'emacs-lisp-mode-hook 'show-paren-mode)
+;; 当光标在括号里面的时候, 也能显示匹配的括号
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (cond ((looking-at-p "\\s(") (funcall fn))
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     (funcall fn)))))
 
 ;; 选中字符后, 输入内容会替换掉, 而不是直接插入
 (delete-selection-mode 1)
@@ -68,5 +75,8 @@
 ;; dired
 (require 'dired-x)
 (setq dired-dwim-target t)
+
+;; Emacs Lisp 不会补全'(单引号)
+(sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
 
 (provide 'init-better-defaults)
