@@ -34,4 +34,26 @@
 
 (global-set-key (kbd "M-s e") 'iedit-mode)
 
+;; org-capture 快捷键
+(global-set-key (kbd "C-c r") 'org-capture)
+;; 设置 org-agenda 打开快捷键
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+;; 设置web-mode缩进, 4个空格还是2个空格
+(global-set-key (kbd "C-c t i") 'my-toggle-web-indent)
+
+;; 设置company补全快捷键为c-n c-p
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
+
+;; auto-yasnippet
+(global-set-key (kbd "H-w") #'aya-create)
+(global-set-key (kbd "H-y") #'aya-expand)
+
+;; 向前删除一个单词
+(global-set-key (kbd "C-w") 'backward-kill-word)
+
 (provide 'init-keybindings)

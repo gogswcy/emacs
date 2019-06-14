@@ -19,16 +19,27 @@
 		      popwin
 		      expand-region
 		      iedit
+		      org-pomodoro
+		      rg
+		      yasnippet
+		      auto-yasnippet
+		      window-numbering
+		      evil-surround
+		      evil-nerd-commenter
+		      which-key
 		      ;; --- Major Mode ---
 		      js2-mode
 		      web-mode
+		      evil
+		      evil-leader
 		      ;; --- Minor Mode ---
 		      nodejs-repl
 		      slime
 		      ;; exec-path-from-shell
 		      ;; --- Themes ---
 		      monokai-theme
-		      ;; solarized-theme
+		      atom-one-dark-theme
+		      solarized-theme
 		      ) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -86,7 +97,6 @@
       (setq css-indent-offset (if (= css-indent-offset 2) 4 2)))
 
   (setq indent-tabs-mode nil))
-(global-set-key (kbd "C-c t i") 'my-toggle-web-indent)
 
 ;; 开启全局 Company 补全
 (global-company-mode 1)
@@ -98,5 +108,53 @@
 ;; popwin插件, 切换窗口, 光标也切换
 (require 'popwin)
 (popwin-mode t)
+
+;; yasnippet
+;; (require 'yasnippet)
+;; (yas-reload-all)
+;; (add-hook 'prog-mode-hook #'yas-minor-mode)
+
+;; evil-mode
+(evil-mode 1)
+(setcdr evil-insert-state-map nil)
+(define-key evil-insert-state-map [escape] 'evil-normal-state)
+
+;; evil-leader
+(global-evil-leader-mode)
+;; evil-leader 快捷键
+(evil-leader/set-key
+  "ff" 'find-file
+  "fr" 'recentf-open-files
+  "bb" 'switch-to-buffer
+  "bk" 'kill-buffer
+  "pf" 'counsel-git
+  "ps" 'rg
+  "0"  'select-window-0
+  "1"  'select-window-1
+  "2"  'select-window-2
+  "3"  'select-window-3
+  "w/" 'split-window-right
+  "w-" 'split-window-below
+  ":"  'counsel-M-x
+  "wm" 'delete-other-windows
+  "qq" 'save-buffers-kill-terminal
+  )
+
+;; window-number
+(window-numbering-mode 1)
+
+;; evil-surround
+(require 'evil-surround)
+(global-evil-surround-mode)
+
+;; evil-nerd-commenter
+(evilnc-default-hotkeys)
+(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+(define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+
+;; which-key
+(which-key-mode 1)
+;; 这一行, 是将which-key的提示信息放到了右边
+;; (setq which-key-side-window-location 'righ)
 
 (provide 'init-packages)

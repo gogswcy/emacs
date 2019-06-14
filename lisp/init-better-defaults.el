@@ -81,5 +81,10 @@
 
 ;; Emacs Lisp 不会补全'(单引号)
 (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
+(sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "`" nil :actions nil)
+
+;; rg
+(require 'rg)
+(rg-enable-default-bindings)
 
 (provide 'init-better-defaults)

@@ -11,8 +11,5 @@
 	   "* TODO [#B] %?\n  %i\n"
 	   :empty-lines 1)))
   )
-(global-set-key (kbd "C-c r") 'org-capture)
-;; 设置 org-agenda 打开快捷键
-(global-set-key (kbd "C-c a") 'org-agenda)
 
 (provide 'init-org)
