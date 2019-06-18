@@ -82,7 +82,7 @@
      #+END_SRC
    - slime设置
      #+BEGIN_SRC emacs-lisp
-     (setq inferior-lisp-program "/usr/bin/clisp")
+     (setq inferior-lisp-program "/usr/bin/sbcl")
      (add-to-list 'slime-contribs 'slime-fancy)
      #+END_SRC
    - popwin
@@ -209,6 +209,12 @@
 	regexp-history)
      (call-interactively 'occur))
      #+END_SRC
+   - Slime 模式,去除自动匹配括号的功能
+     #+BEGIN_SRC emacs-lisp
+     (defun disable-smartparens ()
+     (turn-off-smartparens-mode))
+     (add-hook 'slime-repl-mode-hook #'disable-smartparens)
+     #+END_SRC
 
 * 功能设置
 ** emacs功能的一些配置
@@ -274,6 +280,7 @@
      #+BEGIN_SRC emacs-lisp
      (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
      (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "`" nil :actions nil)
+     (sp-local-pair '(org-mode lisp-interaction-mode) "'" nil :actions nil)
      #+END_SRC
      
 * org设置
@@ -299,6 +306,14 @@
     #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-w") 'backward-kill-word)
     #+END_SRC
+  - Org Agenda
+    #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-c a") 'org-agenda)
+    #+END_SRC
+  - Org Capture
+    #+BEGIN_SRC emacs-lisp
+    (global-set-key (kbd "C-c c") 'org-capture)
+    #+END_SRC
   - expand-region
     #+BEGIN_SRC emacs-lisp
     (global-set-key (kbd "C-=") 'er/expand-region)
@@ -320,15 +335,16 @@
     (evil-leader/set-key
       "ff" 'find-file
       "ca" 'org-agenda
-      "cr" 'org-capture
+      "cc" 'org-capture
       "fj" 'dired-jump
       "fed" 'open-initorg-file
       "ss" 'swiper
       "fr" 'recentf-open-files
       "bb" 'switch-to-buffer
-      "bk" 'kill-buffer
+      "bd" 'kill-buffer
+      "fs" 'save-buffer
       "pf" 'counsel-git
-      "ps" 'rg
+      "fg" 'rg
       "i\\" 'indent-region-or-buffer
       "se" 'iedit-mode
       "so" 'occur-dwim
@@ -338,8 +354,10 @@
       "3" 'select-window-3
       "w/" 'split-window-right
       "w-" 'split-window-below
+      "wd" 'delete-window
       "SPC" 'counsel-M-x
       "wm" 'delete-other-windows
+      "wd" 'delete-window
       "qq" 'save-buffers-kill-terminal
     )
     #+END_SRC

@@ -64,7 +64,7 @@
     '(("\\.html\\'" . web-mode))
     auto-mode-alist))
 
-(setq inferior-lisp-program "/usr/bin/clisp")
+(setq inferior-lisp-program "/usr/bin/sbcl")
 (add-to-list 'slime-contribs 'slime-fancy)
 
 (require 'popwin)
@@ -144,6 +144,10 @@
    regexp-history)
 (call-interactively 'occur))
 
+(defun disable-smartparens ()
+(turn-off-smartparens-mode))
+(add-hook 'slime-repl-mode-hook #'disable-smartparens)
+
 (setq ring-bell-function 'ignore)
 
 (set-language-environment "UTF-8")
@@ -181,6 +185,7 @@
 
 (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "'" nil :actions nil)
 (sp-local-pair '(emacs-lisp-mode lisp-interaction-mode) "`" nil :actions nil)
+(sp-local-pair '(org-mode lisp-interaction-mode) "'" nil :actions nil)
 
 (with-eval-after-load 'org
 ;; org 文本内语法高亮
@@ -198,6 +203,10 @@
 
 (global-set-key (kbd "C-w") 'backward-kill-word)
 
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+(global-set-key (kbd "C-c c") 'org-capture)
+
 (global-set-key (kbd "C-=") 'er/expand-region)
 
 (global-set-key (kbd "M-/") 'hippie-expand)
@@ -211,15 +220,16 @@
 (evil-leader/set-key
   "ff" 'find-file
   "ca" 'org-agenda
-  "cr" 'org-capture
+  "cc" 'org-capture
   "fj" 'dired-jump
   "fed" 'open-initorg-file
   "ss" 'swiper
   "fr" 'recentf-open-files
   "bb" 'switch-to-buffer
-  "bk" 'kill-buffer
+  "bd" 'kill-buffer
+  "fs" 'save-buffer
   "pf" 'counsel-git
-  "ps" 'rg
+  "fg" 'rg
   "i\\" 'indent-region-or-buffer
   "se" 'iedit-mode
   "so" 'occur-dwim
@@ -229,7 +239,9 @@
   "3" 'select-window-3
   "w/" 'split-window-right
   "w-" 'split-window-below
+  "wd" 'delete-window
   "SPC" 'counsel-M-x
   "wm" 'delete-other-windows
+  "wd" 'delete-window
   "qq" 'save-buffers-kill-terminal
 )
