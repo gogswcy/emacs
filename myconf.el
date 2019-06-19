@@ -22,6 +22,7 @@
 		   which-key
 		   js2-mode
 		   web-mode
+		   emmet-mode
 		   evil
 		   evil-leader
 		   nodejs-repl
@@ -63,6 +64,9 @@
     '(("\\.js\\'" . js2-mode))
     '(("\\.html\\'" . web-mode))
     auto-mode-alist))
+
+(require 'emmet-mode)
+(add-hook 'web-mode-hook 'emmet-mode)
 
 (setq inferior-lisp-program "/usr/bin/sbcl")
 (add-to-list 'slime-contribs 'slime-fancy)

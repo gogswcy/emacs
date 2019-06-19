@@ -25,6 +25,7 @@
 		      which-key
 		      js2-mode
 		      web-mode
+		      emmet-mode
 		      evil
 		      evil-leader
 		      nodejs-repl
@@ -79,6 +80,11 @@
 	 '(("\\.js\\'" . js2-mode))
 	 '(("\\.html\\'" . web-mode))
 	 auto-mode-alist))
+     #+END_SRC
+   - emmet-mode
+     #+BEGIN_SRC emacs-lisp
+     (require 'emmet-mode)
+     (add-hook 'web-mode-hook 'emmet-mode)
      #+END_SRC
    - slime设置
      #+BEGIN_SRC emacs-lisp
