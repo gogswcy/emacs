@@ -35,7 +35,7 @@
 (global-set-key (kbd "M-s e") 'iedit-mode)
 
 ;; org-capture 快捷键
-(global-set-key (kbd "C-c r") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 ;; 设置 org-agenda 打开快捷键
 (global-set-key (kbd "C-c a") 'org-agenda)
 

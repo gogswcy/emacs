@@ -51,4 +51,9 @@
 	  (lambda ()
 	    (setq imenu-create-index-function 'js2-imenu-make-index)))
 
+(defun disable-smartparens ()
+  (turn-off-smartparens-mode))
+(add-hook 'slime-repl-mode-hook #'disable-smartparens)
+(add-hook 'nodejs-repl-mode-hook #'disable-smartparens)
+
 (provide 'init-fun)

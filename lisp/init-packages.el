@@ -9,9 +9,7 @@
 
 ;; Add Packages
 (defvar my/packages '(
-		      ;; --- Auto-completion ---
 		      company
-		      ;; --- Better Editor ---
 		      hungry-delete
 		      swiper
 		      counsel
@@ -24,22 +22,20 @@
 		      yasnippet
 		      auto-yasnippet
 		      window-numbering
-		      evil-surround
 		      evil-nerd-commenter
 		      which-key
-		      ;; --- Major Mode ---
+		      use-package
 		      js2-mode
 		      web-mode
+		      emmet-mode
 		      evil
 		      evil-leader
-		      ;; --- Minor Mode ---
 		      nodejs-repl
 		      slime
-		      ;; exec-path-from-shell
-		      ;; --- Themes ---
 		      monokai-theme
 		      atom-one-dark-theme
 		      solarized-theme
+		      cnfonts
 		      ) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -55,6 +51,10 @@
   (dolist (pkg my/packages)
     (when (not (package-installed-p pkg))
       (package-install pkg))))
+
+;; cnfonts
+(require 'cnfonts)
+(cnfonts-enable)
 
 (global-hungry-delete-mode)
 
@@ -73,6 +73,9 @@
        '(("\\.html\\'" . web-mode))
        auto-mode-alist))
 
+;; emmet-mode
+(require 'emmet-mode)
+
 ;; web-mode 缩进
 (defun my-web-mode-indent-setup ()
   (setq web-mode-markup-indent-offset 4) ; web-mode, html tag in html file
@@ -80,6 +83,7 @@
   (setq web-mode-code-indent-offset 4)   ; web-mode, js code in html file
   )
 (add-hook 'web-mode-hook 'my-web-mode-indent-setup)
+(add-hook 'web-mode-hook 'emmet-mode)
 ;; 在两个空格和四个空格之间切换
 (defun my-toggle-web-indent ()
   (interactive)
@@ -124,20 +128,34 @@
 ;; evil-leader 快捷键
 (evil-leader/set-key
   "ff" 'find-file
+  "fed" 'open-init-file
   "fr" 'recentf-open-files
   "bb" 'switch-to-buffer
-  "bk" 'kill-buffer
+  "bd" 'kill-this-buffer
   "pf" 'counsel-git
-  "ps" 'rg
+  "fj" 'dired-jump
+  "fg" 'rg
+  "ss" 'swiper
+  "fs" 'save-buffer
   "0"  'select-window-0
   "1"  'select-window-1
   "2"  'select-window-2
   "3"  'select-window-3
   "w/" 'split-window-right
   "w-" 'split-window-below
-  ":"  'counsel-M-x
   "wm" 'delete-other-windows
+  "wd" 'delete-window
   "qq" 'save-buffers-kill-terminal
+  "SPC" 'counsel-M-x
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "."  'evilnc-copy-and-comment-operator
+  "\\" 'evilnc-comment-operator ; if you prefer backslash key
   )
 
 ;; window-number
@@ -149,8 +167,7 @@
 
 ;; evil-nerd-commenter
 (evilnc-default-hotkeys)
-(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+
 
 ;; which-key
 (which-key-mode 1)

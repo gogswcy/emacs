@@ -24,13 +24,4 @@
 ;; 关闭启动帮助画面
 (setq inhibit-splash-screen 1)
 
-;; 更改显示字体大小 16pt
-(set-face-attribute 'default nil :height 110)
-;; (set-default-font "Consolas")
-(set-fontset-font "fontset-default" 'chinese-gbk "微软雅黑")
-
-(setq face-font-rescale-alist '(("宋体" . 1.1)
-                ("微软雅黑" . 1.0)
-                ))
-
 (provide 'init-ui)

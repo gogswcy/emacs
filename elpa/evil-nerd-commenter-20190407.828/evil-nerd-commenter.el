@@ -768,28 +768,28 @@ if NO-EMACS-KEYBINDINGS is t, we don't define keybindings in EMACS mode."
     (global-set-key (kbd "C-c p") 'evilnc-comment-or-uncomment-paragraphs))
 
   ;; Install key bindings for evil
-  (eval-after-load 'evil
-    '(progn
-       (unless no-evil-keybindings
-         (define-key evil-normal-state-map ",ci" 'evilnc-comment-or-uncomment-lines)
-         (define-key evil-visual-state-map ",ci" 'evilnc-comment-or-uncomment-lines)
-         (define-key evil-normal-state-map ",cl" 'evilnc-quick-comment-or-uncomment-to-the-line)
-         (define-key evil-normal-state-map ",ll" 'evilnc-quick-comment-or-uncomment-to-the-line)
-         (define-key evil-normal-state-map ",cc" 'evilnc-copy-and-comment-lines)
-         (define-key evil-visual-state-map ",cc" 'evilnc-copy-and-comment-lines)
-         (define-key evil-normal-state-map ",cp" 'evilnc-comment-or-uncomment-paragraphs)
-         (define-key evil-normal-state-map ",cr" 'comment-or-uncomment-region)
-         (define-key evil-normal-state-map ",cv" 'evilnc-toggle-invert-comment-line-by-line))))
+  ;; (eval-after-load 'evil
+  ;;   '(progn
+  ;;      (unless no-evil-keybindings
+  ;;        (define-key evil-normal-state-map ",ci" 'evilnc-comment-or-uncomment-lines)
+  ;;        (define-key evil-visual-state-map ",ci" 'evilnc-comment-or-uncomment-lines)
+  ;;        (define-key evil-normal-state-map ",cl" 'evilnc-quick-comment-or-uncomment-to-the-line)
+  ;;        (define-key evil-normal-state-map ",ll" 'evilnc-quick-comment-or-uncomment-to-the-line)
+  ;;        (define-key evil-normal-state-map ",cc" 'evilnc-copy-and-comment-lines)
+  ;;        (define-key evil-visual-state-map ",cc" 'evilnc-copy-and-comment-lines)
+  ;;        (define-key evil-normal-state-map ",cp" 'evilnc-comment-or-uncomment-paragraphs)
+  ;;        (define-key evil-normal-state-map ",cr" 'comment-or-uncomment-region)
+  ;;        (define-key evil-normal-state-map ",cv" 'evilnc-toggle-invert-comment-line-by-line))))
 
   ;; Install operator for evil text objects
   (eval-after-load 'evil-nerd-commenter-operator
     '(progn
        (unless (and no-evil-keybindings (not evilnc-use-comment-object-setup))
          ;; operator to comment at text objects
-         (define-key evil-normal-state-map ",." 'evilnc-copy-and-comment-operator)
-         (define-key evil-visual-state-map ",." 'evilnc-copy-and-comment-operator)
-         (define-key evil-normal-state-map ",," 'evilnc-comment-operator)
-         (define-key evil-visual-state-map ",," 'evilnc-comment-operator)
+         ;; (define-key evil-normal-state-map ",." 'evilnc-copy-and-comment-operator)
+         ;; (define-key evil-visual-state-map ",." 'evilnc-copy-and-comment-operator)
+         ;; (define-key evil-normal-state-map ",," 'evilnc-comment-operator)
+         ;; (define-key evil-visual-state-map ",," 'evilnc-comment-operator)
 
          ;; comment itself is text object
          (define-key evil-inner-text-objects-map evilnc-comment-text-object 'evilnc-inner-comment)
