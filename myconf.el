@@ -17,14 +17,15 @@
 		   org-pomodoro
 		   rg
 		   window-numbering
-		   evil-surround
-		   evil-nerd-commenter
 		   which-key
 		   js2-mode
 		   web-mode
 		   emmet-mode
 		   evil
 		   evil-leader
+		   evil-surround
+		   evil-nerd-commenter
+		   evil-snipe
 		   nodejs-repl
 		   slime
 		   monokai-theme
@@ -86,10 +87,13 @@
 (global-evil-surround-mode)
 
 (evilnc-default-hotkeys)
-(define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
-(define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+;; (define-key evil-normal-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
+;; (define-key evil-visual-state-map (kbd ",/") 'evilnc-comment-or-uncomment-lines)
 
 (which-key-mode 1)
+
+(evil-snipe-mode +1)
+(evil-snipe-override-mode +1)
 
 (setq initial-frame-alist (quote ((fullscreen . maximized))))
 
@@ -248,4 +252,13 @@
   "wm" 'delete-other-windows
   "wd" 'delete-window
   "qq" 'save-buffers-kill-terminal
+  "ci" 'evilnc-comment-or-uncomment-lines
+  "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+  "cc" 'evilnc-copy-and-comment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs
+  "cr" 'comment-or-uncomment-region
+  "cv" 'evilnc-toggle-invert-comment-line-by-line
+  "."  'evilnc-copy-and-comment-operator
+  "\\" 'evilnc-comment-operator ; if you prefer backslash key
 )
