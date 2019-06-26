@@ -12,7 +12,7 @@
 		   counsel
 		   smartparens
 		   popwin
-		   expand-region
+		   ;; expand-region
 		   iedit
 		   org-pomodoro
 		   rg
@@ -20,6 +20,7 @@
 		   which-key
 		   js2-mode
 		   web-mode
+		   php-mode
 		   emmet-mode
 		   evil
 		   evil-leader
@@ -30,7 +31,7 @@
 		   slime
 		   monokai-theme
 		   solarized-theme
-		   use-package
+		   ;; use-package
 		   ) "Default packages")
 
  (setq package-selected-packages my/packages)
@@ -47,7 +48,7 @@
      (when (not (package-installed-p pkg))
      (package-install pkg))))
 
-(require 'use-package)
+;; (require 'use-package)
 
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
@@ -64,6 +65,7 @@
     (append
     '(("\\.js\\'" . js2-mode))
     '(("\\.html\\'" . web-mode))
+    '(("\\.php\\'" . php-mode))
     auto-mode-alist))
 
 (require 'emmet-mode)
@@ -251,7 +253,7 @@
   "SPC" 'counsel-M-x
   "wm" 'delete-other-windows
   "wd" 'delete-window
-  "qq" 'save-buffers-kill-terminal
+  "qs" 'save-buffers-kill-terminal
   "ci" 'evilnc-comment-or-uncomment-lines
   "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
   "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
