@@ -1,5 +1,5 @@
 ;; 开启后默认全屏
-(setq initial-frame-alist (quote ((fullscreen . maximized))))
+;; (setq initial-frame-alist (quote ((fullscreen . maximized))))
 
 ;;当前行高亮
 (global-hl-line-mode 1)

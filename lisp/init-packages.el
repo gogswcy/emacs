@@ -13,7 +13,7 @@
 		      hungry-delete
 		      swiper
 		      counsel
-		      smartparens
+		      ;smartparens
 		      popwin
 		      expand-region
 		      iedit
@@ -30,12 +30,17 @@
 		      emmet-mode
 		      evil
 		      evil-leader
+		      evil-surround
+		      evil-escape
 		      nodejs-repl
 		      slime
+		      treemacs
 		      monokai-theme
 		      atom-one-dark-theme
 		      solarized-theme
 		      cnfonts
+		      php-mode
+		      paredit
 		      ) "Default packages")
 
 (setq package-selected-packages my/packages)
@@ -58,8 +63,8 @@
 
 (global-hungry-delete-mode)
 
-(require 'smartparens-config)
-(smartparens-global-mode t)
+;; (require 'smartparens-config)
+;; (smartparens-global-mode t)
 
 ;; swiper
 (ivy-mode 1)
@@ -145,6 +150,10 @@
   "w-" 'split-window-below
   "wm" 'delete-other-windows
   "wd" 'delete-window
+  "wh" 'evil-window-left
+  "wl" 'evil-window-right
+  "wj" 'evil-window-down
+  "wk" 'evil-window-up
   "qq" 'save-buffers-kill-terminal
   "SPC" 'counsel-M-x
   "ci" 'evilnc-comment-or-uncomment-lines
@@ -156,6 +165,7 @@
   "cv" 'evilnc-toggle-invert-comment-line-by-line
   "."  'evilnc-copy-and-comment-operator
   "\\" 'evilnc-comment-operator ; if you prefer backslash key
+  "ft" 'treemacs
   )
 
 ;; window-number
@@ -164,9 +174,18 @@
 ;; evil-surround
 (require 'evil-surround)
 (global-evil-surround-mode)
+;; evil-escape
+(evil-escape-mode 1)
+(setq-default evil-escape-key-sequence "jk")
+(setq-default evil-escape-delay 0.2)
+(setq evil-escape-inhibit-functions '(evil-visual-state-p))
 
 ;; evil-nerd-commenter
 (evilnc-default-hotkeys)
+
+;; php-mode
+(require 'php-mode)
+(add-to-list 'auto-mode-alist '("\\.\\(?:php\\|phtml\\)\\'" . php-mode))
 
 
 ;; which-key
